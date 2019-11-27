@@ -138,16 +138,6 @@ begin  -- architecture str
   empty    <= r_empty;
 
 
-
-
-
-
-
-
-
-
-
-
 end architecture str;
 
 -------------------------------------------------------------------------------
