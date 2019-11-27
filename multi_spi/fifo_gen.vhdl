@@ -55,8 +55,8 @@ architecture rtl of fifo_gen is
   type r_memory is array (DATA_DEPTH_C -1 downto 0) of std_logic_vector(DATA_WIDTH_C -1 downto 0);
   signal FIFO_mem : r_memory;
 
-  signal write_index : integer DATA_DEPTH_C -1;
-  signal read_index  : integer DATA_DEPTH_C -1;
+  signal write_index : integer range 0 to DATA_DEPTH_C -1;
+  signal read_index  : integer range 0 to DATA_DEPTH_C -1;
 
   signal r_data_out : std_logic_vector(DATA_WIDTH_C -1 downto 0);
   signal r_full     : std_logic;
@@ -72,6 +72,7 @@ begin  -- architecture str
   -- Component instantiations
   -----------------------------------------------------------------------------
   control_process : process(rst_n, clk, we_in, re_in)
+  begin
     if(rst_n = '0') then
       write_index <= 0;
       read_index  <= 0;
@@ -133,21 +134,7 @@ begin  -- architecture str
 --------------------------------------------------------------------------------
 ----------------------------------- outputs ------------------------------------
 --------------------------------------------------------------------------------
-  data_out <= r_data_out;
-  full     <= r_full;
-  empty    <= r_empty;
-
-
-
-
-
-
-
-
-
-
-
-
-end architecture str;
-
--------------------------------------------------------------------------------
+  data_out  <= r_data_out;
+  full_out  <= r_full;
+  empty_out <= r_empty;
+end rtl;
