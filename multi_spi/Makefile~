@@ -1,0 +1,35 @@
+# -*- Makefile -*-
+# Directory : "~/vlsi2/cordic/"
+# Platform  : GHDL
+# Generated : 2019-11-01 10:28:37 TheGoldenAce
+
+
+# Define compilation command and options
+
+COMPILE = ghdl
+OPTION_C =-a
+OPTION_E =-e
+OPTION_R =-r tb_cordic --vcd=cordic.vcd
+SIMU_TIME=--stop-time=1000ns
+EXEC=cordic tb_cordic cordic.vcd
+
+all : $(EXEC)
+
+clean :
+	rm -rf *.o $(EXEC) work*.cf
+
+cordic : cordic.vhdl
+	$(COMPILE) $(OPTION_C) cordic.vhdl
+	$(COMPILE) $(OPTION_E) cordic
+
+tb_cordic : tb_cordic.vhdl
+	$(COMPILE) $(OPTION_C) tb_cordic.vhdl
+	$(COMPILE) $(OPTION_E) tb_cordic
+
+cordic.vcd : cordic tb_cordic
+	$(COMPILE) $(OPTION_R) $(SIMU_TIME)
+
+simu : cordic.vcd
+	gtkwave cordic.vcd
+	
+### Makefile ends here
